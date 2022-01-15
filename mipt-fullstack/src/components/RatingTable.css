@@ -1,0 +1,49 @@
+.rating_table {
+    margin-top: 15vh;
+    margin-bottom: 5vh;
+    margin-left: 15vw;
+    position: fixed;
+    border-radius: 3vw;
+    background-color: #CEE9EF;
+    display: flex;
+    height: 70vh;
+    width: 80vw;
+    justify-content: start;
+    flex-direction: column;
+    min-height: 70vh;
+    align-items: center;
+    vertical-align: top;
+}
+
+.rating_table > *:first-child {
+    margin-top: 1vh;
+}
+
+.table_top {
+    display: flex;
+    background-color: #C4C4C4;
+    width: 70vw;
+    height: 6vh;
+    border-radius: 3vh;
+    margin-top: 0.7vh;
+    margin-bottom: 0.7vh;
+}
+
+.label_top {
+    position: relative;
+    margin: 0 auto;
+    display: inline-flex;
+    flex-direction: row;
+    width: 15vw;
+    height: 6vh;
+    align-items: center;
+    vertical-align: middle;
+    font: bold 1.7vw "Chakra Petch";
+    justify-content: start;
+}
+
+.label_top > *:last-child {
+    width: 5vw;
+    justify-content: end;
+    text-align: end;
+}

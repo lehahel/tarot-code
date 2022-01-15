@@ -1,0 +1,98 @@
+.code_area {
+    margin-top: 15vh;
+    margin-bottom: 5vh;
+    margin-left: 15vw;
+    background-color: #CEE9EF;
+    display: flex;
+    height: 70vh;
+    width: 70vw;
+    border-radius: 1.5vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.text_area {
+    height: 90%;
+    width: 90%;
+    display: flex;
+    position: relative;
+    font: bold 2vw "Chakra Petch";
+    background: transparent;
+    border: none;
+    outline: none;
+    vertical-align: top;
+    text-align: start;
+    justify-content: start;
+    white-space: pre-wrap;
+}
+
+.scorebox {
+    font: bold 1vw "Chakra Petch";
+    position: absolute;
+    left: 17vw;
+    top: 56vh;
+    height: 3vw;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+    text-align: center;
+}
+
+.note {
+    font: 0.8vw "Chakra Petch";
+    position: absolute;
+    left: 25vw;
+    top: 12vh;
+    width: 65vw;
+}
+
+.button_start {
+    position: absolute;
+    left: 17vw;
+    top: 50vh;
+    align-items: center;
+    vertical-align: middle;
+    height: 3vw;
+    width: 4vw;
+    display: flex;
+    border-radius: 1vw;
+    justify-content: center;
+    font: bold 0.8vw "Chakra Petch";
+    background-color: #DDD401;
+    border: 5px solid #000;
+}
+
+.clicked {
+    position: absolute;
+    left: 17vw;
+    top: 50vh;
+    align-items: center;
+    vertical-align: middle;
+    height: 3vw;
+    width: 4vw;
+    display: flex;
+    border-radius: 1vw;
+    justify-content: center;
+    font: bold 0.8vw "Chakra Petch";
+    background-color: #DDD401;
+    border: 2px solid #000;
+    animation: clicker_start 0.2s;
+}
+
+.button_start:hover {
+    background-color: #01C3DD;
+}
+
+@keyframes clicker_start {
+    0%{
+        border: 5px solid #000
+    }
+    50% {
+        border: 2px solid #000
+    }
+    100% {
+        border: 5px solid #000
+    }
+}

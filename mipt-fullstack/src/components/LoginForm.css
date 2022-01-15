@@ -1,0 +1,72 @@
+.login_form {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    position: fixed;
+    left: 27vw;
+    border-radius: 1.5vw;
+    display: flex;
+    height: 80vh;
+    width: 50vw;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.login_form_block {
+    float: left;
+    position: relative;
+    padding: 2.5vh;
+    margin: 0 auto;
+    display: flex;
+}
+
+.login_label {
+    float: left;
+    margin: 0 auto;
+    padding-bottom: 3vh;
+    height: 4vw;
+    width: 40vw;
+    position: relative;
+    border-radius: 1.5vw;
+    -webkit-text-fill-color: #000;
+    font: bold 3vw "Chakra Petch";
+    text-align: left;
+    justify-content: left;
+}
+
+.login_button {
+    float: left;
+    margin: 0 auto;
+    display: flex;
+    height: 4vw;
+    width: 30vw;
+    position: relative;
+    border-radius: 1.5vw;
+    font: bold 1.7vw "Chakra Petch";
+    text-align: center;
+    justify-content: center;
+    -webkit-text-fill-color: #FFF;
+    padding-top: 1.2vh;
+    text-shadow:
+            2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000,
+            1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+
+.register_button {
+    float: left;
+    margin: 0 auto;
+    display: flex;
+    height: 3vw;
+    width: 20vw;
+    position: relative;
+    border-radius: 1.5vw;
+    font: bold 1.7vw "Chakra Petch";
+    text-align: center;
+    justify-content: center;
+    -webkit-text-fill-color: #FFF;
+    padding-top: 0.5vh;
+    text-shadow:
+            2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000,
+            1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}

@@ -1,0 +1,61 @@
+.form {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    position: fixed;
+    left: 27vw;
+    border-radius: 1.5vw;
+    display: flex;
+    height: 80vh;
+    width: 50vw;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 70vh;
+}
+
+.FormBlock {
+    float: left;
+    padding: 2.5vh;
+    margin: 0 auto;
+    display: flex;
+}
+
+.registration_label {
+    float: left;
+    margin: 0 auto;
+    padding-bottom: 3vh;
+    height: 4vw;
+    width: 40vw;
+    position: relative;
+    border-radius: 1.5vw;
+    -webkit-text-fill-color: #000;
+    font: bold 3vw "Chakra Petch";
+    text-align: left;
+    justify-content: left;
+}
+
+.registration_button {
+    float: left;
+    margin: 0 auto;
+    display: flex;
+    height: 4vw;
+    width: 30vw;
+    position: relative;
+    border-radius: 1.5vw;
+    font: bold 1.7vw "Chakra Petch";
+    text-align: center;
+    justify-content: center;
+    -webkit-text-fill-color: #FFF;
+    padding-top: 0.8vw;
+    text-shadow:
+            2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000,
+            1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+
+.notification {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    width: 4vw;
+    height: 3vh;
+    font: bold 1.7vw "Chakra Petch";
+}

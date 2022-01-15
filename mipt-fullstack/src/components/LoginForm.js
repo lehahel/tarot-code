@@ -3,8 +3,12 @@ import React from "react";
 import LoginTextBox from "./LoginTextBox";
 import './LoginForm.css'
 import {withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 import AuthApi from "../services/AuthApi";
+
+import {withCookies, Cookies} from 'react-cookie'
+import {instanceOf} from "prop-types";
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -17,8 +21,22 @@ class LoginForm extends React.Component {
         }
     }
 
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
     handleLogin = () => {
-        AuthApi.Login(this.state.email, this.state.password)
+        AuthApi.Login(this.state.email, this.state.password).then(
+            (data) => {
+                if (data.status === 200) {
+                    this.props.history.push('/');
+                    const {cookies} = this.props
+                    cookies.set("user_id", data.data.user.id, { path: "/" });
+                    cookies.set("access", data.data.access, { path: "/" });
+                    cookies.set("refresh", data.data.refresh, { path: "/" });
+                    console.log('COOKIEs ADDED')
+                }
+            })
     }
 
     setEmail = (evt) => this.setState({email: evt.target.value})
@@ -45,4 +63,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default withRouter(LoginForm);
+export default compose(withRouter, withCookies)(LoginForm)

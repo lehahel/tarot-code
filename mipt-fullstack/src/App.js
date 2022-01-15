@@ -7,9 +7,27 @@ import Register from './pages/Register';
 import Test from './pages/Test';
 import Login from "./pages/Login";
 import Rating from "./pages/Rating";
+import { instanceOf } from "prop-types";
 
-function App() {
-    return (
+import {withCookies, Cookies} from "react-cookie";
+
+class App extends React.Component{
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    state = {
+        user: this.props.cookies.get("user") || ""
+    };
+
+    handleCookie = () => {
+        const { cookies } = this.props;
+        cookies.set("user", "gowtham", { path: "/" }); // setting the cookie
+        this.setState({ user: cookies.get("user") });
+    };
+
+    render() {
+        return (
         <>
             <Router>
                 <Navbar />
@@ -23,6 +41,7 @@ function App() {
             </Router>
         </>
     );
+    }
 }
 
-export default App;
+export default withCookies(App);

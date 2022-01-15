@@ -2,10 +2,13 @@ import React from "react";
 
 import LoginTextBox from "./LoginTextBox";
 import './RegistrationForm.css'
-
+import {withRouter} from "react-router-dom";
 import AuthApi from "../services/AuthApi";
+import {instanceOf} from "prop-types";
+import {withCookies, Cookies} from "react-cookie";
+import {compose} from "redux";
 
-export default class RegistrationForm extends React.Component {
+class RegistrationForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,13 +20,22 @@ export default class RegistrationForm extends React.Component {
         }
     }
 
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
     handleRegistration = () => {
         AuthApi.RegisterUser(
             this.state.login, this.state.email, this.state.password, this.state.name, this.state.surname
         ).then(data => { if (data.status === 201) {
             let text = "Something went wrong!"
             if (data.status === 201) {
-                text = "Successfully registered!"
+                text = "Successfully registered!";
+                this.props.history.push('/');
+                const {cookies} = this.props
+                cookies.set("user_id", data.data.user.id, { path: "/" });
+                cookies.set("access", data.data.access, { path: "/" });
+                cookies.set("refresh", data.data.refresh, { path: "/" });
             } else if (data.status === 400) {
                 text = "All the fields should be filled"
             }
@@ -53,3 +65,5 @@ export default class RegistrationForm extends React.Component {
         )
     }
 }
+
+export default compose(withRouter, withCookies)(RegistrationForm);

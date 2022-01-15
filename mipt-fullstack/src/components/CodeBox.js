@@ -5,8 +5,12 @@ import './CodeBox.css'
 import StartButton from '../img/start_button.svg'
 
 import CodeApi from "../services/CodeApi";
+import AuthApi from "../services/AuthApi";
 
-export default class CodeBox extends React.Component {
+import {Cookies, withCookies} from "react-cookie";
+import {instanceOf} from "prop-types";
+
+class CodeBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,29 +19,67 @@ export default class CodeBox extends React.Component {
             code: '',
             score_text: 'TEST',
             clicked: false,
+            access: null,
         }
     }
 
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
     generatePromise() {
-        CodeApi.CreateCode(this.state.user_id, this.state.code_name, this.state.code).then(
-            // should get data from back
-            (data) => { this.setState({score_text: 'score: 1000'}) }
-        )
+        this.setState({code: document.getElementById('textarea').textContent})
+        const {cookies} = this.props;
+
+        const refresh = cookies.get('refresh')
+        const user_id = cookies.get('user_id')
+
+        let access = null;
+
+        AuthApi.RefreshUser(refresh).then((data) => {
+            if (data.status === 200) {
+                access = data.data.access;
+                this.setState({access: access})
+                console.log("1: " + access);
+            }
+        });
+        console.log("2: " + this.state.access)
+
+        let username = null;
+        this.sleep(500).then(() => {AuthApi.GetActiveUser(user_id, this.state.access).then((data) => {
+            if (data.status === 200) {
+
+                username = data.data.username;
+                console.log("USERNAME" + username)
+                // username = data.data.username;
+                CodeApi.CreateCode(user_id, this.state.code_name, this.state.code).then(
+                    (data) => {
+                        this.setState({score_text: 'score: ' + data.data.user_code.score});
+                    }
+                )
+            } else {
+                this.setState( { score_text: 'ERROR' } );
+            }
+        })});
+
     }
 
     render() {
         return (
             <div>
-                <div className='note'></div>
                 <button className={
                     this.state.clicked ? 'clicked'  : 'button_start'}
-                        onClick={() => this.setState({clicked: true})}
+                        onClick={() => { this.setState({clicked: true}); this.generatePromise()}}
                         onAnimationEnd={() => this.setState({clicked: false})}>
                     <img src={StartButton} alt='start' style={{width: '1.5vw', height: '1.5vw'}}/>
                 </button>
-                <label className='scorebox'>score: 1230</label>
+                <label className='scorebox'> {this.state.score_text} </label>
                 <div className='code_area'>
-                    <div  className="text_area" contentEditable="true" spellCheck="false" onKeyDown={(event) => {
+                    <div id="textarea" className="text_area" contentEditable="true" spellCheck="false" onKeyDown={(event) => {
                         if (event.key === 'Enter') {
                             document.execCommand('insertLineBreak')
                             event.preventDefault()
@@ -51,3 +93,5 @@ export default class CodeBox extends React.Component {
         )
     }
 }
+
+export default withCookies(CodeBox);

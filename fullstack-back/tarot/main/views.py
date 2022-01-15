@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.serializers import Serializer
 
+from django.core import serializers as model_serializers
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import mixins
@@ -39,16 +41,18 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated,)
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['username']
-    ordering = ['username']
+    ordering_fields = ['id']
+    ordering = ['id']
+
 
     def get_queryset(self):
         if self.request.user.is_superuser:
             return User.objects.all()
 
+
     def get_object(self):
         lookup_field_value = self.kwargs[self.lookup_field]
-        obj = User.objects.get(lookup_field_value)
+        obj = User.objects.get(pk=lookup_field_value)
         self.check_object_permissions(self.request, obj)
         return obj
 
@@ -62,8 +66,10 @@ class UserCodeViewSet(viewsets.ModelViewSet):
 
         serializer.is_valid(raise_exception=True)
         user_code = serializer.save()
+        print(user_code)
+        serializer = UserCodeResponseSerializer(user_code)
         return Response({
-            "user_code": serializer.data,
+            "user_code": serializer.data
         }, status=status.HTTP_201_CREATED)
 
 

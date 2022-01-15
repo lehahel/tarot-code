@@ -12,11 +12,13 @@ export const actionTypes = {
 const getApiUrl = (additionalUrl) => baseUrl + '/api' + additionalUrl;
 
 export default {
-    performAction(action, url, data = {}) {
+    performAction(action, url, data = {}, headers = {}, withCredentials = false) {
         return axios({
             method: action,
             url: getApiUrl(url),
-            data: data
+            data: data,
+            headers: headers,
+            withCredentials: withCredentials
         })
     }
 }

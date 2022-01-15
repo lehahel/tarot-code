@@ -33,6 +33,12 @@ class UserCodeSerializer(serializers.ModelSerializer):
         return user_code
 
 
+class UserCodeResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserCode
+        fields = ["id", "user_id", "name", "code", "score"]
+
+
 class RatingTableObjectSerializer(serializers.ModelSerializer):
     # user = UserSerializer(many=True)
     user_id = serializers.SlugRelatedField(
